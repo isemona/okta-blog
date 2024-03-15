@@ -144,7 +144,7 @@ To handle both OIDC and non-OIDC users, the app should first prompt for the user
 
 ### Hide the password field
 
-The first change in `apps/todo-app/src/app/components/signin.tsx` is hiding the password field when the page is first loaded. Find the `div` containing the password, give it an identifier, and set it to be hidden by default: 
+The first change in `apps/todo-app/src/app/components/signin.tsx` is hiding the password field when the page is first loaded. Find the `div` containing the password, add an ID property with a descriptive value like "password-field", and set it to be hidden by default: 
 
 ```html
 <div id="password-field" className="mb-6" hidden>
