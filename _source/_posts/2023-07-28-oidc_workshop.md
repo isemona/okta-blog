@@ -196,7 +196,7 @@ The `onUsernameEnteredFn` code doesn't exist yet, but you'll write it in the nex
 
 ## Start the OpenID flow for authentication
 
-To complete the frontend changes, implement the `onUsernameEnteredFn` in `apps/todo-app/src/app/components/authState.tsx`. This will be similar to `onAuthenticateFn`, which is already provided in the sample code. 
+To complete the frontend changes, add the `onUsernameEnteredFn` to `apps/todo-app/src/app/components/authState.tsx`. This will be similar to `onAuthenticateFn`, which is already provided in the sample code. Before you read on to see how we implemented it, try writing the `onUsernameEnteredFn` yourself! Once you're ready for some help, follow along below as we implement it step by step.
 
 Declare `onUsernameEnteredFn` in the `AuthContextType` Type: 
 
