@@ -39,11 +39,11 @@ You will also need a free [Okta Developer Account](https://developer.okta.com/lo
 
 ## Why use OpenID Connect (OIDC) to authenticate users
 
-The Todo app currently only supports password login, but your enterprise customers' IT departments don't want their users managing one-off passwords. You would also like to use customer data, such as which user accounts belong to which organizations, to enhance your app's features. 
+The Todo app currently only supports password login, but your enterprise customers' IT departments want more secure authentication. You would also like to use customer data, such as which user accounts belong to which organizations, to enhance your app's features. 
 
 Since you value flexibility and maintainability, you want to use a library to let your app integrate with arbitrary OpenID Connect servers. 
 
-Introducing these features will require adding logic to the application's backend to handle user accounts and org memberships appropriately, and frontend code to authenticate users with their organization's identity provider when appropriate while supporting password authentication for users who aren't signing in via OIDC. To use these features of your app, you will set it up with an OIDC integration in your Okta Developer Account.
+Fulfilling these needs will require adding logic to the application's backend to handle user accounts and org memberships appropriately, and frontend code to authenticate users with their organization's identity provider when appropriate while supporting password authentication for users who aren't signing in via OIDC. To use these features of your app, you will set it up with an OIDC integration in your Okta Developer Account.
 
 ## Support OIDC in the Prisma database schema
 
