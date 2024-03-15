@@ -341,7 +341,7 @@ The [Passport OIDC Docs](https://www.passportjs.org/packages/passport-openidconn
 
 In order to use the OIDC library, you need to import it into the file. 
 
-At the top of `apps/api/src/main.ts`, you'll find other imports, such as `import passportLocal from 'passport-local';`. The Todo app uses the local passport strategy, and you'll add the OIDC strategy. Add the import for the OIDC passport after the import for 'passport-local':
+At the top of `apps/api/src/main.ts`, you'll find other imports, such as `import passportLocal from 'passport-local';`. The Todo app uses the local passport strategy, and you'll add the OIDC strategy. Add the import for the OIDC passport to `main.ts` after the import for 'passport-local':
 
 ```ts
 import passportOIDC from 'passport-openidconnect';
