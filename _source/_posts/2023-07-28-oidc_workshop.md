@@ -421,7 +421,7 @@ Now that the Passport OIDC library is configured to interface with the database 
 
 The frontend will redirect the browser to the backend's `/openid/start/${org_id}` endpoint to initiate the OpenID login flow when a user belongs to an org. 
 
-When that endpoint is hit, it will identify the org and create an appropriate strategy for it. It will then handle any errors that might result, and call `passport.authenticate` to use the OpenID configuration passed from the database through the newly created `Strategy` and authenticate the user. 
+When that endpoint is hit, it will identify the org and create an appropriate strategy for it. It will then handle any errors that might result, and call `passport.authenticate` to use the OpenID configuration passed from the database through the newly created `Strategy` and authenticate the user. Add the endpoint in `main.ts`:
 
 ```ts
 // The frontend then redirects here to have the backend start the OIDC flow.
