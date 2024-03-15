@@ -496,7 +496,7 @@ In the "Create a new app integration" dialog box, select the **OIDC - OpenID Con
 
 Give this app integration a useful name like "Todo app", and make sure that **Authorization Code** box is selected under "Client acting on behalf of a user" in the Grant type field. 
 
-Find the ID used for this customer in your app by checking the database. For this workshop, the first customer has ID 1, so the sign-in redirect URI is `http://localhost:3333/openid/callback/1`. 
+Next, find the customer's ID in order to determine their redirect URI. If this is the first customer you've added, their ID will be 1. You can check this ID in the database by running the terminal command `npx prisma studio` in your workshop directory. For the customer with ID 1, so the sign-in redirect URI is `http://localhost:3333/openid/callback/1`. 
 
 Finally, under Assignments, select "Allow everyone in your organization to access". Saving these changes using the Save button at the bottom of the page will take you to the app's General settings tab, which provides a Client ID and Client Secret. 
 
