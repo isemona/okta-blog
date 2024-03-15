@@ -31,7 +31,7 @@ For an in-depth walkthrough of developing and troubleshooting the code in this w
 
 {% include toc.md %}
 
-**Before you begin** 
+**Prerequisites** 
 
 Follow the [getting started guide](/blog/2023/07/27/enterprise-ready-getting-started) to set up the Todo app and its dependencies. Make sure you can run the app locally and view the login page in your browser. Launch Prisma Studio (`npx prisma studio`) to examine the database, as well. 
 
