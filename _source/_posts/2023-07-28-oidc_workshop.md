@@ -34,7 +34,7 @@ For an in-depth walkthrough of developing and troubleshooting the code in this w
 
 {% include toc.md %}
 
-**Before you begin** 
+**Prerequisites** 
 
 Follow the [getting started guide](/blog/2023/07/27/enterprise-ready-getting-started) to set up the Todo app and its dependencies. Make sure you can run the app locally and view the login page in your browser. Launch Prisma Studio (`npx prisma studio`) to examine the database, as well. 
 
@@ -42,11 +42,11 @@ You will also need a free [Okta Developer Account](https://developer.okta.com/lo
 
 ## Why use OpenID Connect (OIDC) to authenticate users
 
-The Todo app currently only supports password login, but your enterprise customers' IT departments don't want their users managing one-off passwords. You would also like to use customer data, such as which user accounts belong to which organizations, to enhance your app's features. 
+The Todo app currently only supports password login, but your enterprise customers' IT departments want more secure authentication. You would also like to use customer data, such as which user accounts belong to which organizations, to enhance your app's features. 
 
 Since you value flexibility and maintainability, you want to use a library to let your app integrate with arbitrary OpenID Connect servers. 
 
-Introducing these features will require adding logic to the application's backend to handle user accounts and org memberships appropriately, and frontend code to authenticate users with their organization's identity provider when appropriate while supporting password authentication for users who aren't signing in via OIDC. To use these features of your app, you will set it up with an OIDC integration in your Okta Developer Account.
+Fulfilling these needs will require adding logic to the application's backend to handle user accounts and org memberships appropriately, and frontend code to authenticate users with their organization's identity provider when appropriate while supporting password authentication for users who aren't signing in via OIDC. To use these features of your app, you will set it up with an OIDC integration in your Okta Developer Account.
 
 ## Support OIDC in the Prisma database schema
 
@@ -147,7 +147,7 @@ To handle both OIDC and non-OIDC users, the app should first prompt for the user
 
 ### Hide the password field
 
-The first change in `apps/todo-app/src/app/components/signin.tsx` is hiding the password field when the page is first loaded. Find the `div` containing the password, give it an identifier, and set it to be hidden by default: 
+The first change in `apps/todo-app/src/app/components/signin.tsx` is hiding the password field when the page is first loaded. Find the `div` containing the password, add an ID property with a descriptive value like "password-field", and set it to be hidden by default: 
 
 ```html
 <div id="password-field" className="mb-6" hidden>
@@ -199,7 +199,7 @@ The `onUsernameEnteredFn` code doesn't exist yet, but you'll write it in the nex
 
 ## Start the OpenID flow for authentication
 
-To complete the frontend changes, implement the `onUsernameEnteredFn` in `apps/todo-app/src/app/components/authState.tsx`. This will be similar to `onAuthenticateFn`, which is already provided in the sample code. 
+To complete the frontend changes, add the `onUsernameEnteredFn` to `apps/todo-app/src/app/components/authState.tsx`. This will be similar to `onAuthenticateFn`, which is already provided in the sample code. Before you read on to see how we implemented it, try writing the `onUsernameEnteredFn` yourself! Once you're ready for some help, follow along below as we implement it step by step.
 
 Declare `onUsernameEnteredFn` in the `AuthContextType` Type: 
 
@@ -344,7 +344,7 @@ The [Passport OIDC Docs](https://www.passportjs.org/packages/passport-openidconn
 
 In order to use the OIDC library, you need to import it into the file. 
 
-At the top of `apps/api/src/main.ts`, you'll find other imports, such as `import passportLocal from 'passport-local';`. The Todo app uses the local passport strategy, and you'll add the OIDC strategy. Add the import for the OIDC passport after the import for 'passport-local':
+At the top of `apps/api/src/main.ts`, you'll find other imports, such as `import passportLocal from 'passport-local';`. The Todo app uses the local passport strategy, and you'll add the OIDC strategy. Add the import for the OIDC passport to `main.ts` after the import for 'passport-local':
 
 ```ts
 import passportOIDC from 'passport-openidconnect';
@@ -424,7 +424,7 @@ Now that the Passport OIDC library is configured to interface with the database 
 
 The frontend will redirect the browser to the backend's `/openid/start/${org_id}` endpoint to initiate the OpenID login flow when a user belongs to an org. 
 
-When that endpoint is hit, it will identify the org and create an appropriate strategy for it. It will then handle any errors that might result, and call `passport.authenticate` to use the OpenID configuration passed from the database through the newly created `Strategy` and authenticate the user. 
+When that endpoint is hit, it will identify the org and create an appropriate strategy for it. It will then handle any errors that might result, and call `passport.authenticate` to use the OpenID configuration passed from the database through the newly created `Strategy` and authenticate the user. Add the endpoint in `main.ts`:
 
 ```ts
 // The frontend then redirects here to have the backend start the OIDC flow.
@@ -499,7 +499,7 @@ In the "Create a new app integration" dialog box, select the **OIDC - OpenID Con
 
 Give this app integration a useful name like "Todo app", and make sure that **Authorization Code** box is selected under "Client acting on behalf of a user" in the Grant type field. 
 
-Find the ID used for this customer in your app by checking the database. For this workshop, the first customer has ID 1, so the sign-in redirect URI is `http://localhost:3333/openid/callback/1`. 
+Next, find the customer's ID in order to determine their redirect URI. If this is the first customer you've added, their ID will be 1. You can check this ID in the database by running the terminal command `npx prisma studio` in your workshop directory. For the customer with ID 1, so the sign-in redirect URI is `http://localhost:3333/openid/callback/1`. 
 
 Finally, under Assignments, select "Allow everyone in your organization to access". Saving these changes using the Save button at the bottom of the page will take you to the app's General settings tab, which provides a Client ID and Client Secret. 
 
